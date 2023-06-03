@@ -50,7 +50,7 @@ class OrangeMoneyPayment extends PaymentModule
         $this->tab = 'payments_gateways';
         $this->version = '1.0.0';
         $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
-        $this->author = 'Dadhsoft';
+        $this->author = 'Kulturman';
         $this->controllers = array('validation');
         $this->is_eu_compatible = 1;
 
