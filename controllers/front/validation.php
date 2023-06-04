@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'/../../util.php';
+require_once __DIR__.'/../../models/OmOrderTransaction.php';
 
 class OrangemoneypaymentValidationModuleFrontController extends ModuleFrontController
 {
@@ -35,6 +36,7 @@ class OrangemoneypaymentValidationModuleFrontController extends ModuleFrontContr
         if (!Validate::isLoadedObject($customer)) {
             Tools::redirect('index.php?controller=order&step=1');
         }
+
         $otp = isset($_REQUEST['transaction_id']) ? $_REQUEST['transaction_id'] : '';
         $phoneNumber = isset($_REQUEST['phone_number']) ? $_REQUEST['phone_number'] : '';
         $total = $cart->getOrderTotal(true, Cart::BOTH);
@@ -48,6 +50,12 @@ class OrangemoneypaymentValidationModuleFrontController extends ModuleFrontContr
                         $cart->id, 2 , $total, 'Orange money', NULL,
                         [] , (int)$currency->id, false, $customer->secure_key
                 );
+
+            $transaction =  new OmOrderTransaction();
+            $transaction->id_transaction = $result->transID;
+            $transaction->payment_method = 'Orange money';
+            $transaction->id_order = $this->module->currentOrder;
+            $transaction->add();
 
             die(json_encode([
                 'success' => true,

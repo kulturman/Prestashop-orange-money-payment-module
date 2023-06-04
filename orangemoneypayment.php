@@ -140,11 +140,44 @@ class OrangeMoneyPayment extends PaymentModule
 
     public function install()
     {
-        if (!parent::install() || !$this->registerHook('paymentOptions') || !$this->registerHook('paymentReturn')) {
+        if (
+            !parent::install() ||
+            !$this->registerHook('paymentOptions') ||
+            !$this->registerHook('paymentReturn') ||
+            !$this->createTables()
+        ) {
             return false;
         }
+
         return true;
     }
+
+    public function uninstall($keep = true)
+    {
+        if (!parent::uninstall()
+            || ($keep && !$this->deleteTables())) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function deleteTables() {
+        $query = 'DROP TABLE IF EXISTS '._DB_PREFIX_.'orange_money_module_order_transaction';
+        return Db::getInstance()->execute(trim($query));
+    }
+
+    public function createTables() {
+        $query = '
+            CREATE TABLE IF NOT EXISTS '._DB_PREFIX_.'orange_money_module_order_transaction (
+                id INT PRIMARY KEY AUTO_INCREMENT,
+                id_transaction VARCHAR(255) NOT NULL,
+                payment_method VARCHAR(255) NOT NULL,
+                id_order INT NOT NULL
+        )';
+        return Db::getInstance()->execute(trim($query));
+    }
+
 
     public function hookPaymentOptions($params)
     {
