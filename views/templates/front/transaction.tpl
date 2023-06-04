@@ -1,7 +1,7 @@
 {extends "$layout"}
 
 {block name="content"}
-    <h2>{l s='Procédure de paiment par Orange money' mod='orangemoneypayment'}</h2>
+    <h2>{l s='Procédure de paiement par Orange money' mod='orangemoneypayment'}</h2>
     <p>
         {l s='Le coût de votre commande est de' mod='orangemoneypayment'} {$formattedAmount}, {l s='payez par OM en faisant:' mod='orangemoneypayment'}
         <strong style="color: red; font-size: 1.2em;">
