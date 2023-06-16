@@ -33,5 +33,9 @@
         </div>
 
     </form>
+    <script>
+        let codeShouldHave6DigitsMessage = '{l s='Le code doit contenir six (6) chiffres' mod='orangemoneypayment'}'
+        let invalidPhoneNumberMessage = '{l s='Le numéro de téléphone est invalide' mod='orangemoneypayment'}'
+        let requestErrorMessage = '{l s='Une erreur inattendue est survenue, veuillez réessayer plus tard' mod='orangemoneypayment'}'
+    </script>
 {/block}
-

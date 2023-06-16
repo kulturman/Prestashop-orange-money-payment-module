@@ -5,34 +5,27 @@ $('#transaction_id,#phone_number').keyup(function(event) {
 })
 
 function validateCode(){
-    var userInput = $('#transaction_id').val();
-    var errorMessage = null;
+    let userInput = $('#transaction_id').val();
+    let errorMessage = null;
 
-	if(userInput.length != 6) {
-		errorMessage = 'Le code doit contenir 6 chiffres';
-	}
-	else {
-		var regexp = /^[0-9]+$/;
-		if (!userInput.match(regexp)) {
-            errorMessage = "Le code entré est invalide";
+    let regexp = /^[0-9]{6}$/;
+
+    if (!userInput.match(regexp)) {
+        errorMessage = codeShouldHave6DigitsMessage;
+    }
+    else {
+        errorMessage = null;
+    }
+
+    if(!errorMessage) {
+        userInput = $('#phone_number').val();
+        let regexp = /^[0-9]{8}$/;
+        
+        if (!userInput.match(regexp)) {
+            errorMessage = invalidPhoneNumberMessage;
         }
         else {
             errorMessage = null;
-        }
-    }
-    if(!errorMessage) {
-        userInput = $('#phone_number').val();
-        if(userInput.length != 8) {
-            errorMessage = 'Le numéro de téléphone est invalide';
-        }
-        else {
-            var regexp = /^[0-9]+$/;
-            if (!userInput.match(regexp)) {
-                errorMessage = "Le numéro de téléphone est invalide";
-            }
-            else {
-                errorMessage = null;
-            }
         }
     }
     handleMessageVisibility(errorMessage);
@@ -56,7 +49,7 @@ $('#payment-form').submit(function(e) {
         theme: "sk-circle",
         message: "<h4>Veuillez patienter SVP</h4>"
     });
-    var url = $(this).attr('action');
+    let url = $(this).attr('action');
     $.ajax({
         url: url,
         data: $(this).serialize(),
@@ -81,7 +74,7 @@ $('#payment-form').submit(function(e) {
         HoldOn.close();
         Swal.fire({
             title: 'Erreur',
-            text: "Une erreur inattendue est survenue, veuillez réessayer plus tard",
+            text: requestErrorMessage,
             icon: 'error',
             confirmButtonText: 'OK'
         })
