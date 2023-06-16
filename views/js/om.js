@@ -47,7 +47,7 @@ $('#payment-form').submit(function(e) {
     e.preventDefault();
     HoldOn.open({
         theme: "sk-circle",
-        message: "<h4>Veuillez patienter SVP</h4>"
+        message: "<h4>"+pleaseWaitMessage+"</h4>"
     });
     let url = $(this).attr('action');
     $.ajax({
