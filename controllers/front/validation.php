@@ -37,7 +37,7 @@ class OrangemoneypaymentValidationModuleFrontController extends ModuleFrontContr
             Tools::redirect('index.php?controller=order&step=1');
         }
 
-        $otp = isset($_REQUEST['transaction_id']) ? $_REQUEST['transaction_id'] : '';
+        $otp = isset($_REQUEST['otp']) ? $_REQUEST['otp'] : '';
         $phoneNumber = isset($_REQUEST['phone_number']) ? $_REQUEST['phone_number'] : '';
         $total = $cart->getOrderTotal(true, Cart::BOTH);
         $result = sendOrangeMoneyPayment($phoneNumber, $total, $otp);

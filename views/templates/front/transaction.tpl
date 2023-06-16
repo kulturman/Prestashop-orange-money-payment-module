@@ -21,7 +21,7 @@
         <div>
             <div class = "form-group" style = "width:40%;display:inline-block">
                 <label>{l s='Code OTP (reçu par SMS)' mod='orangemoneypayment'}</label>
-                <input type = "password" name = "transaction_id" id = "transaction_id" class = "form-control"><br/>
+                <input type = "password" name = "otp" id = "otp" class = "form-control"><br/>
             </div>
             <div class = "form-group" style = "width:40%;display:inline-block">
                 <label>{l s="Numéro de téléphone ayant servi à créer l'OTP (sans espaces ni de tirets)" mod='orangemoneypayment'}</label>
