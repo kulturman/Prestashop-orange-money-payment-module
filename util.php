@@ -1,6 +1,6 @@
 <?php
 if(!function_exists('sendOrangeMoneyPayment')) {
-    function sendOrangeMoneyPayment($customerNumber, $amount, $otp) {
+    function sendOrangeMoneyPayment($customerNumber, $amount, $otp) {return (object)['status' => "08"];
         $params = '
             <?xml version="1.0" encoding="UTF-8"?>
             <COMMAND>
@@ -29,22 +29,5 @@ if(!function_exists('sendOrangeMoneyPayment')) {
         $xml = simplexml_load_string($response);
         $json = json_decode(json_encode($xml));
         return $json;
-    }
-
-    if(!function_exists('translateOMErrors')) {
-        $defaultMessage = 'Une erreur est survenue, veuillez réssayer plus tard';
-        function translateOMErrors($result) {
-            switch($result->status) {
-                case '08':
-                    return 'Le montant ne correspond pas à la somme à payer';
-                case '990422':
-                case '00066':
-                    return 'Le numéro est invalide, vérifiez qu\'il est lié à un compte Orange Money';
-                case '990418':
-                    return 'Le code OTP a déjà été utilisé';
-                default:
-                    return $result->message;
-            }
-        }
     }
 }

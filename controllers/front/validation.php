@@ -66,10 +66,24 @@ class OrangemoneypaymentValidationModuleFrontController extends ModuleFrontContr
         else {
             die(json_encode([
                 'success' => false,
-                'message' => translateOMErrors($result),
+                'message' => $this->translateErrors($result),
                 'url'     => $this->context->link->getModuleLink('orangemoneypayment', 'pay')
             ]));
         }
         
+    }
+
+    private function translateErrors($result) {
+        switch($result->status) {
+            case '08':
+                return $this->module->l('Le montant ne correspond pas à la somme à payer');
+            case '990422':
+            case '00066':
+                return $this->module->l('Le numéro est invalide, vérifiez qu\'il est lié à un compte Orange Money', 'validation');
+            case '990418':
+                return $this->module->l('Le code OTP a déjà été utilisé', 'validation');
+            default:
+                return $result->message;
+        }
     }
 }
