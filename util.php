@@ -1,6 +1,6 @@
 <?php
 if(!function_exists('sendOrangeMoneyPayment')) {
-    function sendOrangeMoneyPayment($customerNumber, $amount, $otp) {return (object)['status' => "08"];
+    function sendOrangeMoneyPayment($customerNumber, $amount, $otp) {
         $params = '
             <?xml version="1.0" encoding="UTF-8"?>
             <COMMAND>
